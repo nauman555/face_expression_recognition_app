@@ -6,9 +6,9 @@ index.html
 -> include libraries
 #face expression recognition library
 
-<script defer src="face-api.min.js"></script>
+      <script defer src="face-api.min.js"></script>
 
- <script defer src="script.js"></script>
+       <script defer src="script.js"></script>
 
 ->video tag for showing video on web browser
 
@@ -23,13 +23,13 @@ script.js
         Promise.all([
         faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
 
-// register parts of face
-faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
-// detect where the face is
-faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
-// detect happy , sad , etc
-faceapi.nets.faceExpressionNet.loadFromUri("/models")
-]).then(startVideo);
+      //############## register parts of face
+        faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
+    //############ detect where the face is
+      faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
+        // detect happy , sad , etc
+         faceapi.nets.faceExpressionNet.loadFromUri("/models")
+         ]).then(startVideo);
 
         function startVideo() {
         navigator.getUserMedia(
@@ -38,12 +38,11 @@ faceapi.nets.faceExpressionNet.loadFromUri("/models")
         err => console.log(err)
         );
         }
-
-// when the video play
-video.addEventListener("play", () => {
-// display canvas over video
-var canvas = faceapi.createCanvasFromMedia(video);
-document.body.append(canvas);
+     ###when the video play
+      video.addEventListener("play", () => {
+    // display canvas over video
+     var canvas = faceapi.createCanvasFromMedia(video);
+     document.body.append(canvas);
 
         var displaySize = {
         width: video.width,
@@ -52,18 +51,18 @@ document.body.append(canvas);
 
         faceapi.matchDimensions(canvas, displaySize);
 
-// run code multiple times
-setInterval(async () => {
-// detect all faces inside the web cam , when this called
-const detections = await faceapi
-.detectAllFaces(
-video,
-// detect faces with face landmark , draw the face on screen , different dots on screen
-new faceapi.TinyFaceDetectorOptions()
-)
-.withFaceLandmarks()
-// determine whether happy sad
-.withFaceExpressions();
+     //######## run code multiple times
+     setInterval(async () => {
+     //######## detect all faces inside the web cam , when this called
+     const detections = await faceapi
+     .detectAllFaces(
+     video,
+     //###### detect faces with face landmark , draw the face on screen , different dots on screen
+     new faceapi.TinyFaceDetectorOptions()
+     )
+     .withFaceLandmarks()
+     //##### determine whether happy sad
+     .withFaceExpressions();
 
     //   clear the canvas before draw
 
@@ -76,5 +75,5 @@ new faceapi.TinyFaceDetectorOptions()
     faceapi.draw.drawFaceLandmarks(canvas, resizeDetections);
     faceapi.draw.drawFaceExpressions(canvas, resizeDetections);
 
-}, 100);
-});
+    }, 100);
+    });
